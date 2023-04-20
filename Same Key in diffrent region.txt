@@ -1,0 +1,14 @@
+have to launch instance in different region with same key pair ?
+
+region 1:
+
+launch instance 
+take ssh of instance 
+run cmd :- # ec2-metadata --> copy private key 
+
+region 2:
+go to key pair ---> Actions ---> import key 
+paste private rsa key in metadata tab 
+give same name as region 1 key
+
+ready to use

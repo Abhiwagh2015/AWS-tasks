@@ -1,0 +1,32 @@
+S3  Cross account bucket acces  :-
+----------------------------------
+
+1.create bucket in Account 1
+2.create bucket policy ---> using policy generator 
+					->type -s3
+					->principal -> arn:aws:iam::<Account ID >:root { copy user arn} 
+					->Actions -> all actions 
+					-> resource - Bucket arn
+					and 
+					->type -s3
+					->principal -> arn:aws:iam::<Account ID >:root { copy user arn} 
+					->Actions -> all actions 
+					-> resource - Bucket arn/*
+3. paste generated policy in bucket policy
+
+go to another account 
+
+4.create user 
+5.create iam policy --> using policy generator 
+					->type - iam
+					->principal -> by default it take s3 service 
+					->Actions -> all actions
+					-> resource - Bucket arn
+					and
+					->type - iam
+					->principal -> by default it take s3 service 
+					->Actions -> all actions
+					-> resource - Bucket arn/*
+
+6. paste and create iam policy
+7.Attach iam policy to the user

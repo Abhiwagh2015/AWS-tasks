@@ -1,0 +1,17 @@
+how to copy AMI (Amazon machine image) to another account ?
+============================================================
+
+Ami can be copied in same regions .
+
+Account 1:
+
+1.go to AMI
+2.select AMI > Actions > modify image permissions > | private 					   | >save
+								    | paste Account 2 id , select check box  |
+
+3. if you dont want to share image anymore then >select AMI > Actions > modify image permissions > deselect id 
+
+Account 2 :
+
+1. go to AMi
+2. select private Ami

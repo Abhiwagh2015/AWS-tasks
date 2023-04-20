@@ -1,0 +1,10 @@
+Mount s3 bucket on EC2 instance
+================================
+
+1.launch an EC2 instance 
+2.take ssh 
+3.run cmd   # sudo yum install s3fs-fuse -y for Amazon linux
+		# sudo apt-get install s3fs for ubuntu
+4.Attach role on instance for s3 
+5. # mkdir /mnt/s3bucket 
+6. # sudo s3fs bucket-name /mnt/s3bucket 

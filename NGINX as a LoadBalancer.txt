@@ -1,0 +1,36 @@
+NGINX as a lOAD BALANCER:
+
+1. create 3 instences [load balancer(server 1) ,server 2,server 3]
+2. take ssh of server 1 
+3. do below steps in all three server
+   yum update  
+   yum install nginx 
+   systemctl start nginx
+   systemctl enable nginx 
+4.To change index.html file for server 2 and server 3 :- # cd  /usr/share/nginx/html/ 
+									   # vim index.html --> edit html file 
+5.then go to nginx conf file : # vim /etc/nginx/nginx.conf 
+6. paste this in nginx.conf 
+
+events {
+        worker_connections 768;
+}
+
+http {
+        upstream myapp
+        {
+                server Server_1_Address weight=1;
+                server Server_2_Address weight=1;
+        }
+
+        #These are my settings SHROBON
+        server {
+                listen 80;
+                location / {
+                        proxy_pass http://myapp ;
+                }
+        }
+}
+
+7. systemctl restart nginx 
+8. hit the loadbalancer ip in new tab

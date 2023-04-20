@@ -1,0 +1,19 @@
+Recover lost key for running instance :-
+
+
+1.launch instance with new key 
+2.stop the new instance 
+3.go to ebs --> detach the volume of new instances
+4.then attached to old instance
+5.then , copy the authorized_keys folder (new instance volume) and paste it to the .ssh/ folder (old instance volume)
+6. detach volume (new volume ) from ( old instance ) and attached to new instance 
+
+
+
+second method 
+--------------
+
+
+1. create snapshot of older instance 
+2. using this snapshot create AMI 
+3. using Ami , launch an instance with new key 

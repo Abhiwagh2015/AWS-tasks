@@ -1,0 +1,26 @@
+open ssh use ssl certificate by nginx
+=====================================
+
+
+1. Launch an instance with user data 
+		#!/bin/bash
+		sudo apt install nginx -y
+		sudo systemctl enable nginx
+		sudo systemctl start nginx
+		sudo apt install openssl
+
+2. take ssh of ec2 instance 
+3.sudo apt install openssl
+4.openssl genrsa -des3 -out myhostname.key 4096
+5.openssl req -new -key myhostname.key -out hostname.csr
+6.rm -rf hostname.csr
+7.openssl req -new -key myhostname.key -out hostname.csr
+8.cp myhostname.key myhostname.key.pw
+9.openssl rsa -in myhostname.key.pw -out myhostname.key
+10.cat myhostname.key
+11.cat hostname.csr
+12.openssl x509 -req -in hostname.csr -signkey myhostname.key -out myhostname.crt
+13.sudo apt install nginx
+14.sudo mkdir /etc/nginx/ssl
+15.sudo cp myhostname.key /etc/nginx/ssl/
+16.sudo cp myhostname.crt /etc/nginx/ssl/

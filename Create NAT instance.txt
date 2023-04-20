@@ -1,0 +1,10 @@
+Instead of using NAT Gateway use ec2 instance?**** ----> we have to create Nat instance
+ 
+create vpc --> attach IGW
+create public and private subnets 
+create route table for public and private 
+launch instance with NAT ami ---> Community AMI--> aws_nat Ami {using public subnet }
+launch instance using private subnet 
+Attach IGW and associate public subnet in public route table
+Attach nat instance --> instances --> select nat instance and associate private subnet 
+take ssh of nat instance and fron that take private instance take ssh of private instance and ping it  

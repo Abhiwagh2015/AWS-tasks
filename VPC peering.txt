@@ -1,0 +1,30 @@
+region 1 {mumbai}:- [Requester]
+
+1.create vpc
+2.create subnets public and private 
+3.enable auto assign ipv4 for public 
+4. create internet gateway ---> attach internet gateway to vpc
+5. create route table {route_a},----> associate both public and private subnets 
+6.create security group--->Add ICMP port in SG
+7.launch instences using public and private subnets
+8.peering connections --> create peering --> 1. my account 2.Another region 3. vpc id of region 2 -->
+9.Add ip of region in route table --> route table --> routes -->edit -->private ip of region 2 && select peering connections -> save
+
+
+
+region 2 {tokyo} :-[Acceptor]
+
+1.create vpc 
+2.create subnet for private & create route table 
+3.create security grp 
+4.launch instance for private 
+5.peering connections --> Accept peering 
+5.Add ip of region in route table --> route table --> routes -->edit -->public ip of region 1 && select peering connections -> save
+
+ ===============
+| cross Account |
+ ==============
+same steps as above 
+
+in peering --> select another account --> Account id of 2nd Account --> vpc id of 2nd Account 
+then Accept peering from first another account

@@ -1,0 +1,139 @@
+Transit gateway
+================
+
+
+SAME REGION :-
+------------
+
+1. create Two vpc
+	VPC1 ---> 10.0.0.0/16 -->associate it with IGW  
+		Subnet ---> 10.0.1.0/24
+		create route table --> add subnet in route > subnet associate > edit > select subnet > save
+						attach IGW to route table ---> click on route table > routes > edit > add route > 0.0.0.0/0 > IGW > save 
+		
+
+	VPC2 ---> 192.0.0.0/16 --> associate it with IGW
+		Subnet ---> 192.0.1.0/24
+		create route table --> add subnet in route > subnet associate > edit > select subnet > save
+						attach IGW to route table ---> click on route table > routes > edit > add route > 0.0.0.0/0 > IGW > save
+
+
+2.launch an ec2 instances in VPC1 and VPC2 
+	with security grp sg1 --> for VPC1 ----> add ssh 
+				sg2 --> for VPC2 ----> add ssh 
+
+			 
+3. go to VPC > click on transit Gateway 
+	create Transit gateway
+		--> name tag - tg1
+		--> description - as you want 
+		--> ANS - click on info and copy the big no you see on screen {420000000}
+		{keep all rest of the setting to default}
+
+4.go to VPC > click on transit gateway attachment 
+	create Transit gateway
+		--> name tag - TGA-VPC1
+		--> TG id - select TG1
+		--> attachmet type - VPC
+		--> VPC id - select your vpc {vpc1}
+
+	create Transit gateway
+		--> name tag - TGA-VPC2
+		--> TG id - select TG1
+		--> attachmet type - VPC
+		--> VPC id - select your vpc {vpc2}
+
+5. go to vpc > click on transit gateway route tables 
+	--> click in route table {Already created by default}
+		-> check VPC are associate 
+		-> check VPC in Routes --> they should be in Active state
+		
+6. go to security grps 
+	-> go to sg1
+		->  inbound rule > ssh > cidr of vpc2 {192.0.0.0/16}
+	-> go to sg2
+		->  inbound rule > ssh > cidr of vpc1 {10.0.0.0/16}
+
+7.go to vpc > route tables 
+	-> VPC1 
+		-> route > edit > CIDR of VPC2 {192.0.0.0/16} and add transit gateway 
+	-> VPC2
+		-> route > edit > CIDR of VPC1 {10.0.0.0/16} and add transit gateway 
+	
+
+
+
+CROSS REGION 
+------------
+
+consider two region mumbai and ohio
+
+1. create Two vpc
+	[ mumbai ]
+	VPC1 ---> 10.0.0.0/16 -->associate it with IGW  
+		Subnet ---> 10.0.1.0/24
+		create route table --> add subnet in route > subnet associate > edit > select subnet > save
+						attach IGW to route table ---> click on route table > routes > edit > add route > 0.0.0.0/0 > IGW > save 
+		
+	[ Ohio ]
+	VPC2 ---> 192.0.0.0/16 --> associate it with IGW
+		Subnet ---> 192.0.1.0/24
+		create route table --> add subnet in route > subnet associate > edit > select subnet > save
+						attach IGW to route table ---> click on route table > routes > edit > add route > 0.0.0.0/0 > IGW > save
+
+
+2.launch an ec2 instances in VPC1 and VPC2 
+	with security grp sg1 --> for VPC1 ----> add ssh 
+				sg2 --> for VPC2 ----> add ssh 
+
+3. go to VPC > click on transit Gateway
+	[mumbai] 
+	create Transit gateway 
+		--> name tag - tg1
+		--> description - as you want 
+		--> ANS - click on info and copy the big no you see on screen {420000000}
+		{keep all rest of the setting to default}
+
+	[ohio]
+	create Transit gateway
+		--> name tag - tg1
+		--> description - as you want 
+		--> ANS - click on info and copy the big no you see on screen {420000000}
+		{keep all rest of the setting to default}
+
+
+4.go to VPC > click on transit gateway attachment 
+	create Transit gateway
+		--> name tag - TGA-VPC1
+		--> TG id - select TG1
+		--> attachmet type - VPC
+		--> VPC id - select your vpc {vpc1}
+
+	create Transit gateway
+		--> name tag - TGA-VPC2
+		--> TG id - select TG1
+		--> attachmet type - VPC
+		--> VPC id - select your vpc {vpc2}
+
+	create Transit gateway
+		--> name tag - Peering connections 
+		--> TG id - select TG1
+		--> attachmet type - peering 
+		--> select -> my account --> for peering in diffrent region
+						 --> for peering in diffrent account
+		--> select Region --> where your transit gateway is 
+		--> transit gateway (Acceptor) [mumbai] --> paste id of transit gateway in Another region [ohio] 
+
+5.go to another region [ohio] > transit gateway attachment > Accept pending request 
+
+6. go to [mumbai] > transit gateway route table > routes >create static route > CIDR of [ ohio ] > select peering connection
+   go to [ohio] > transit gateway route table > routes >create static route > CIDR of [ mumbai ] > select peering connection
+
+
+
+
+
+
+
+
+

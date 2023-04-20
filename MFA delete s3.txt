@@ -1,0 +1,17 @@
+1.create bucket 
+2.create Access key for account : security credentials > create access key
+3.create iam role for s3 bucket --> give full access to s3 bucket : IAM > Roles > create roles 
+4.attach role to EC2 instance : click on instance > actions > security > modify iam roles 
+5.take ssh of ec2 instance --> give credentials 
+6. make sure you can access s3 bucket by running this command 
+		# aws s3 ls
+7. # aws s3api get-bucket-versioning --bucket <bucket_name>  --> this cmd will list out bucket versioning details 
+8.enable mfa delete on bucket 
+	# aws s3api put-bucket-versioning --bucket <bucket_name> --versioning-configuration Status=Enabled,MFADelete=Enabled --mfa “arn:aws:iam::<account number>:mfa/root-account-mfa-device <mfa_code>”
+
+9. $ aws s3api list-object-versions --bucket <bucket_name>
+10. Delete object with mfa 
+	$ aws s3api delete-object --bucket <Bucket_Name> --version-id <VersionId> --key <Key/Object> --mfa “arn:aws:iam::<account_number>:mfa/root-account-mfa-device <6 digit mfa device code>”
+
+11. TO disable the mfa delete 
+	aws s3api put-bucket-versioning --bucket <Bucket name>  --versioning-configuration Status=Enabled,MFADelete=Disabled --mfa "arn:aws:iam::<Account no>:mfa/root-account-mfa-device < mfa_code >"

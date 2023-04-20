@@ -1,0 +1,27 @@
+create efs file and mount on multipal ec2-instance 
+-----------------------------------------------------
+
+
+1. AWS console > EFS > create file system
+				-> give name 
+				-> select vpc 
+
+2.launch 1 ec2 instance 
+{ if you select your custon vpc the go to vpc > click on actions > edit vpc setting > enable dns hostname and dns resolutions}
+
+3.go to EFS > click on name > click on attach > select mount via dns 
+
+4. take ssh of EC2 instance
+	# sudo vim /etc/fstab
+		<efs Dns name>:/ /mnt nfs4 defaults 0 0
+	# mount -a
+	# lsblk --> to check
+	# df -hT  
+5. create ana ami from this ec2 instance 
+6. launch as many instances you want ,that all instances is connected to efs
+
+--------------------------------------------------------------------------------
+if you want to associate efs with autoscalling 
+ 
+7. create template from an instance
+8. Associate it with autoscalling group
