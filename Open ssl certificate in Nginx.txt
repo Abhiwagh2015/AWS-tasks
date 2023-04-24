@@ -1,3 +1,6 @@
+AWS doc link :- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/SSL-on-amazon-linux-ami.html
+-------------------------------------------------------------------------------------------------
+
 open ssh use ssl certificate by nginx
 =====================================
 

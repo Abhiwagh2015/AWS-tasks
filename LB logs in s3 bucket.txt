@@ -1,0 +1,14 @@
+https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#access-log-create-bucket
+-------------------------------------------------------------------------------------------------------------------------------
+
+Access LoadBalancer logs in S3 bucket 
+======================================
+
+
+1.create bucket in same region as your load balancer 
+2.create load balancer 
+	- click on name 
+	- go to attributes 
+	- click on edit 
+	- enable access logs 
+	- select buckeet that you created 
