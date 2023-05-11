@@ -1,0 +1,43 @@
+move on premices data to Aws :
+
+1. Download Aws cli
+2. install Aws cli
+3. crate secreat key and Access key
+4. create role 
+	a. create a file named -->  trust-policy.json
+		{
+		   "Version": "2012-10-17",
+		   "Statement": [
+		      {
+		         "Effect": "Allow",
+		         "Principal": { "Service": "vmie.amazonaws.com" },
+		         "Action": "sts:AssumeRole",
+		         "Condition": {
+		            "StringEquals":{
+	               "sts:Externalid": "vmimport"
+		            }
+		         }
+		      }
+		   ]
+		}
+	b. aws iam create-role --role-name vmimport --assume-role-policy-document "file://C:\import\trust-policy.json"
+
+5. create a s3 bucket  
+6. export your vm ---> in ovm format 
+7. upload this ovm file to s3 bucket
+8. Import the file in to AMI
+	a. create file --> containers.json
+		[
+		  {
+		    "Description": "My Server OVA",
+		    "Format": "ova",
+		    "UserBucket": {
+		        "S3Bucket": "my-import-bucket",
+		        "S3Key": "vms/my-server-vm.ova"
+		    }
+		  }
+		]
+	b. aws ec2 import-image --description "My server disks" --disk-containers "file://C:\import\containers.json"
+
+9.monitor your image 
+	aws ec2 describe-import-image-tasks --import-task-ids import-ami-1234567890abcdef0
